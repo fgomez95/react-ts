@@ -26,6 +26,12 @@ function App(): JSX.Element {
     setTodos(todosCopy);
   };
 
+  const handleRemoveTodo = (idx: number): void => {
+    let todosCopy: ITodo[] = [...todos];
+    todosCopy.splice(idx, 1);
+    setTodos(todosCopy);
+  };
+
   return (
     <Fragment>
       <h1>Todo List</h1>
@@ -40,12 +46,13 @@ function App(): JSX.Element {
       </form>
       <section>
         {todos.map((todoEl, idx) => (
-          <Fragment key={idx}>
+          <div key={idx}>
             <span>{todoEl.text} </span>
             <button onClick={() => handleToggleTodo(idx)}>
               {todoEl.complete ? "Incomplete" : "Complete"}
             </button>
-          </Fragment>
+            <button onClick={() => handleRemoveTodo(idx)}>Remove</button>
+          </div>
         ))}
       </section>
     </Fragment>
