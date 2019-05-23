@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from "react";
+import { ITodo } from "./components/Todos/TodoTypes";
+import Todos from "./components/Todos/Todos";
 
 type FormEvent = React.FormEvent<HTMLFormElement>;
-interface ITodo {
-  text: string;
-  complete: boolean;
-}
+
 function App(): JSX.Element {
   const [value, setValue] = useState<string>("");
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -44,17 +43,11 @@ function App(): JSX.Element {
         />
         <button type="submit">Add Todo</button>
       </form>
-      <section>
-        {todos.map((todoEl, idx) => (
-          <div key={idx}>
-            <span>{todoEl.text} </span>
-            <button onClick={() => handleToggleTodo(idx)}>
-              {todoEl.complete ? "Incomplete" : "Complete"}
-            </button>
-            <button onClick={() => handleRemoveTodo(idx)}>Remove</button>
-          </div>
-        ))}
-      </section>
+      <Todos
+        todos={todos}
+        handleToggleTodo={handleToggleTodo}
+        handleRemoveTodo={handleRemoveTodo}
+      />
     </Fragment>
   );
 }
